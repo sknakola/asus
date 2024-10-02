@@ -1,0 +1,156 @@
+display all files in given directory:
+
+import os
+
+def ls(directory):
+    try:
+        files = os.listdir(directory)
+        for file in files:
+            if os.path.isfile(os.path.join(directory, file)):
+                print(file)
+    except FileNotFoundError:
+        print(f"The directory {directory} does not exist")
+
+ls('/home/ditiss/Python/Assignment')
+_____________________________________________________________________________
+invert dictionary
+
+def invert_dict(d):
+    inverse = dict()
+    for key in d:
+        val = d[key]
+        inverse.setdefault(val, []).append(key)
+    return inverse
+
+
+d = {'a': 0, 'b': 1, 'c': 2, 'd': 2}
+print(invert_dict(d))
+_________________________________________________________________________________
+check the permission of file
+
+import os
+import stat
+
+file_path = '/home/ditiss/Python/Assignment/Q20.py'
+
+# Check if the file exists
+if os.path.exists(file_path):
+    # Get the file status
+    file_stat = os.stat(file_path)
+
+    # Check permissions
+    r = bool(file_stat.st_mode & stat.S_IRUSR)
+    w = bool(file_stat.st_mode & stat.S_IWUSR)
+    x = bool(file_stat.st_mode & stat.S_IXUSR)
+
+    print(f"Readable: {r}")
+    print(f"Writable: {w}")
+    print(f"Executable: {x}")
+else:
+    print("File does not exist.")
+__________________________________________________________________________________
+Delete file from directory
+
+import os
+
+# Specify the file path
+file_path = '/home/ditiss/abc'
+
+# Delete the file
+if os.path.exists(file_path):
+    os.remove(file_path)
+    print(f"File deleted: {file_path}")
+else:
+    print("File does not exist.")
+__________________________________________________________________________________
+Count number of words in given file
+
+number_of_words = 0
+
+with open(r'/home/ditiss/cyber','r') as file:
+    data = file.read()
+    lines = data.split()
+    number_of_words += len(lines)
+
+print(number_of_words)
+_____________________________________________________________________________________
+ Get the time stamp of file created 
+
+import datetime
+import os
+
+stats = os.stat('/home/ditiss/cyber')
+print(stats.st_atime)
+print(stats.st_mtime)
+print(stats.st_ctime)
+print(stats.st_mtime)
+_____________________________________________________________________________________
+Create a directory in given Path
+
+import os
+
+directory = '1'
+
+parent_dir = "/home/ditiss/"
+
+path = os.path.join(parent_dir, directory)
+
+os.mkdir(path)
+
+print("directory '%s' created" % directory)
+
+
+mode = 0o666
+__________________________________________________________________________________________
+Perform socket programming and replace non vowels in “$” in given string.
+
+CLIENT CODE:
+||||||||||||||||||||||||||||
+import socket
+
+s = socket.socket()
+port = 12345
+s.connect(('192.168.75.128',port))
+input_string = input('enter data you want to send: ')
+s.sendall(bytes(input_string, 'utf-8'))
+data = s.recv(1024).decode('utf-8')
+print(f'recieved {data}')
+s.close()
+
+SERVER CODE:
+|||||||||||||||||||||||||||||||
+import socket
+
+s = socket.socket()
+print("socket successfully created")
+
+port = 12345
+
+
+s.bind(('', port))
+print("socket binded to %s" %(port))
+
+s.listen(5)
+print("socket is listening")
+
+while True:
+    c, addr = s.accept()
+    print('got connection from', addr)
+
+    data = c.recv(1024).decode('utf-8')
+
+    a = ''
+    for i in range(0, len(data)):
+        if (data[i] == 'a' or data[i] == 'e' or data[i] == 'i' or data[i] == 'o' or data[i] == 'u' or data[i] == 'A'
+                or data[i] == 'E' or data[i] == 'I' or data[i] == 'O' or data[i] == 'U'):
+            a += data[i]
+        else:
+            a+= '$'
+    if not data:
+        break
+    c.sendall(bytes(a, 'utf-8'))
+    c.close()
+
+
+
+
